@@ -1,7 +1,7 @@
 // Internal use
 int adaptiveConvergenceCheck(real oldT, real newT, real lepsilon, real log1mL) {
   // if L = 0, there is a simpler check
-  if (!log1mL) return oldT - newT < log1p_exp(newT - lepsilon);
+  if (log1mL == 0) return oldT - newT < log1p_exp(newT - lepsilon);
   
   real logZ = newT + oldT - log_diff_exp(oldT, newT);
   real ls = newT - log1mL;
@@ -15,8 +15,8 @@ int adaptiveConvergenceCheck(real oldT, real newT, real lepsilon, real log1mL) {
 
 // Adaptive inifinite sum algorithm
 // Requires definition of logFunction with two arguments:
-// int k and real[] parameters
-real[] infiniteErrorBoundingPairs(real[] p, real epsilon, int maxIter, real logL, int n0) {
+// int k and array[] real parameters
+array[] real infiniteErrorBoundingPairs(array[] real p, real epsilon, int maxIter, real logL, int n0) {
   vector[maxIter + 1] storeVal;
   real leps = log(epsilon) + log2();
   int n = 2;
